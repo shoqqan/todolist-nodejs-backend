@@ -37,11 +37,15 @@ const swaggerOptions = {
         info: {
             title: 'Todolist NodeJS API',
             version: '1.0.0',
-            description: 'Todolist API with noSQL database',
+            description: 'Todolist API with noSQL database.\n\nURL - https://todolist-nodejs-backend.onrender.com/\n\nFor more information, visit our [GitHub Repository](https://github.com/shoqqan/todolist-nodejs-backend).',
             contact: {
                 name: 'Shokan Tatayev',
                 url: 'https://shokan-tatayev.vercel.app/',
                 email: 'tataev.shokan@gmail.com'
+            },
+            externalDocs: { // Ссылка на репозиторий
+                url: 'https://github.com/YourGitHubUsername/YourRepositoryName',
+                description: 'GitHub Repository'
             },
             servers: [`http://localhost:${process.env.PORT}`]
         }
