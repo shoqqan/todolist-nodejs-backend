@@ -8,7 +8,7 @@
 
   <br>
 
-🌐 Live API Documentation: <a href='https://todolist-nodejs-backend.onrender.com/api-docs/'>Live Documentation</a>
+🌐 Live API Documentation: <a target="_blank" href='https://todolist-nodejs-backend.onrender.com/api-docs/'>Live Documentation</a>
 
 
 <p>
