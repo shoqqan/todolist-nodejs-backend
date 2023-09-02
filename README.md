@@ -12,17 +12,16 @@
 </p>
 
 
+🌐 Live API Documentation: <a href='https://todolist-nodejs-backend.onrender.com/api-docs/'>Live Documentation</a>
 
 <br>
 
-  <h2>Table of Contents</h2>
-    <ol>
-        <li><a href="#api-endpoints">API Endpoints</a></li>
-        <li><a href="#examples">Examples</a></li>
-    </ol>
+## Table of Contents
+
+- [API Endpoints](#api-endpoints)
+- [Examples](#examples)
     <br>
 
-🌐 Live Demo: <a href='https://shoqqan.github.io/creative-scroll-website/'>Live Demo</a>
 
 <h3>Created with:</h3>
 
@@ -134,6 +133,3 @@
   <h2 id="examples">Examples</h2>
     <p>For example:   </p>
     <p>https://todolist-nodejs-backend.onrender.com/api/todolists</p>
-
-    <p>This documentation provides a comprehensive guide on how to use the TodoList API. If you have any questions or
-        need further assistance, please refer to the code comments or contact the API developer.</p>
