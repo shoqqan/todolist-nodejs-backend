@@ -54,7 +54,7 @@ const disableTryItOut = {
     customSiteTitle: 'My API Documentation', // Заголовок вашей документации
     customCss: '.swagger-ui .topbar .download-url-wrapper { display: none }', // Скрываем UI элемент для выполнения запросов
 };
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs, disableTryItOut));
+app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocs, disableTryItOut));
 
 const port = 8080;
 
@@ -389,5 +389,5 @@ app.put('/api/tasks/:todolist_id/status', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log('Server is running on port ' + port);
+    console.log('Server is running on port 8080');
 });
