@@ -54,7 +54,7 @@ const disableTryItOut = {
     customSiteTitle: 'My API Documentation', // Заголовок вашей документации
     customCss: '.swagger-ui .topbar .download-url-wrapper { display: none }', // Скрываем UI элемент для выполнения запросов
 };
-app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocs, disableTryItOut));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs, disableTryItOut));
 
 const port = 8080;
 
