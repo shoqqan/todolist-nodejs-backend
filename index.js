@@ -73,6 +73,7 @@ app.use(express.json());
  *         description: Get success
  */
 app.get('/api/return_default', (req, res) => {
+    fs.writeFileSync(databasePathURL, JSON.stringify(defaultDATA));
     res.json(defaultDATA)
 });
 

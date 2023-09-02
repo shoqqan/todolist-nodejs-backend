@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dba77eb-4d6a-47ee-8e65-f8a738a21194" name="Changes" comment="API documentation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="8dba77eb-4d6a-47ee-8e65-f8a738a21194" name="Changes" comment="fix url again">
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,23 +31,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.17.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.17.0&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Docs/projects&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "javascript.nodejs.core.library.configured.version": "18.17.0",
+    "javascript.nodejs.core.library.typings.version": "18.17.0",
+    "last_opened_file_path": "C:/Docs/projects/todolist-nodejs-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/pages" />
@@ -98,6 +97,7 @@
       <workItem from="1673096795166" duration="9676000" />
       <workItem from="1693419553946" duration="1381000" />
       <workItem from="1693511729439" duration="17865000" />
+      <workItem from="1693653797979" duration="367000" />
     </task>
     <task id="LOCAL-00001" summary="created &quot;change status&quot; request">
       <created>1693639062076</created>
@@ -120,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693652069563</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix url again">
+      <created>1693653905499</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1693653905499</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +148,7 @@
     <MESSAGE value="created &quot;change status&quot; request" />
     <MESSAGE value="fixed responses" />
     <MESSAGE value="API documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="API documentation" />
+    <MESSAGE value="fix url again" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix url again" />
   </component>
 </project>
