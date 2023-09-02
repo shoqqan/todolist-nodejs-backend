@@ -80,7 +80,7 @@ const port = 8080;
 
 /**
  * @swagger
- * /api/return_default:
+ * /return_default:
  *   get:
  *     summary: Return default value of database
  *     description: Return default value of database for testing
@@ -88,18 +88,18 @@ const port = 8080;
  *       200:
  *         description: Get success
  */
-app.get('/api/return_default', (req, res) => {
+app.get('/return_default', (req, res) => {
     fs.writeFileSync(databasePathURL, JSON.stringify(defaultDATA));
     res.json(defaultDATA)
 });
 
-app.get('/api/todolists', (req, res) => {
+app.get('/todolists', (req, res) => {
     let rawdata = fs.readFileSync(databasePathURL);
     res.json(JSON.parse(rawdata));
 });
 /**
  * @swagger
- * /api/todolists:
+ * /todolists:
  *   get:
  *     summary: Get todolist
  *     description: Get todolists
@@ -109,7 +109,7 @@ app.get('/api/todolists', (req, res) => {
  *         description: Get success
  */
 // GET TASKS FROM TODOLIST
-app.get('/api/todolists/:todolist_id/tasks', (req, res) => {
+app.get('/todolists/:todolist_id/tasks', (req, res) => {
     const {todolist_id} = req.params;
     let rawdata = fs.readFileSync(databasePathURL);
     let todolistsDB = JSON.parse(rawdata);
@@ -123,7 +123,7 @@ app.get('/api/todolists/:todolist_id/tasks', (req, res) => {
 // CREATE TODOLIST
 /**
  * @swagger
- * /api/todolists:
+ * /todolists:
  *   post:
  *     summary: Create a new Todolist
  *     description: Create a new Todolist with a specified title.
@@ -142,7 +142,7 @@ app.get('/api/todolists/:todolist_id/tasks', (req, res) => {
  *       200:
  *         description: New Todolist created successfully.
  */
-app.post('/api/todolists', (req, res) => {
+app.post('/todolists', (req, res) => {
     const {title} = req.body;
     let rawdata = fs.readFileSync(databasePathURL);
     let todolistsDB = JSON.parse(rawdata);
@@ -157,7 +157,7 @@ app.post('/api/todolists', (req, res) => {
 // CHANGE TODOLIST TITLE
 /**
  * @swagger
- * /api/todolists/{todolist_id}:
+ * /todolists/{todolist_id}:
  *   put:
  *     summary: Update Todolist title
  *     description: Update the title of a Todolist with a specified ID.
@@ -183,7 +183,7 @@ app.post('/api/todolists', (req, res) => {
  *       404:
  *         description: Todolist not found.
  */
-app.put('/api/todolists/:todolist_id', (req, res) => {
+app.put('/todolists/:todolist_id', (req, res) => {
     const {todolist_id} = req.params;
     const {title} = req.body;
     let rawdata = fs.readFileSync('./database/todolistsDB.json');
@@ -200,7 +200,7 @@ app.put('/api/todolists/:todolist_id', (req, res) => {
 // DELETE TODOLIST
 /**
  * @swagger
- * /api/todolists/{todolist_id}:
+ * /todolists/{todolist_id}:
  *   delete:
  *     summary: Delete Todolist
  *     description: Delete a Todolist with a specified ID.
@@ -216,7 +216,7 @@ app.put('/api/todolists/:todolist_id', (req, res) => {
  *       404:
  *         description: Todolist not found.
  */
-app.delete('/api/todolists/:todolist_id', (req, res) => {
+app.delete('/todolists/:todolist_id', (req, res) => {
     const {todolist_id} = req.params;
     let rawdata = fs.readFileSync('./database/todolistsDB.json');
     let todolistsDB = JSON.parse(rawdata);
@@ -233,7 +233,7 @@ app.delete('/api/todolists/:todolist_id', (req, res) => {
 // CREATE TASK
 /**
  * @swagger
- * /api/tasks:
+ * /tasks:
  *   post:
  *     summary: Create a new Task
  *     description: Create a new task in a specified Todolist.
@@ -254,7 +254,7 @@ app.delete('/api/todolists/:todolist_id', (req, res) => {
  *       200:
  *         description: New task created successfully.
  */
-app.post('/api/tasks', (req, res) => {
+app.post('/tasks', (req, res) => {
     let rawdata = fs.readFileSync('./database/todolistsDB.json');
     let todolistsDB = JSON.parse(rawdata);
     const {todolist_id, title} = req.body;
@@ -271,7 +271,7 @@ app.post('/api/tasks', (req, res) => {
 // CHANGE TASK TITLE
 /**
  * @swagger
- * /api/tasks/{todoid}:
+ * /tasks/{todoid}:
  *   put:
  *     summary: Update Task title
  *     description: Update the title of a task in a Todolist.
@@ -299,7 +299,7 @@ app.post('/api/tasks', (req, res) => {
  *       404:
  *         description: Task or Todolist not found.
  */
-app.put('/api/tasks/:todoid', (req, res) => {
+app.put('/tasks/:todoid', (req, res) => {
     let rawdata = fs.readFileSync('./database/todolistsDB.json');
     let todolistsDB = JSON.parse(rawdata);
     const {todoid} = req.params;
@@ -320,7 +320,7 @@ app.put('/api/tasks/:todoid', (req, res) => {
 // DELETE TASK
 /**
  * @swagger
- * /api/tasks/{todolist_id}:
+ * /tasks/{todolist_id}:
  *   delete:
  *     summary: Delete Task
  *     description: Delete a task from a Todolist.
@@ -346,7 +346,7 @@ app.put('/api/tasks/:todoid', (req, res) => {
  *       404:
  *         description: Task or Todolist not found.
  */
-app.delete('/api/tasks/:todolist_id', (req, res) => {
+app.delete('/tasks/:todolist_id', (req, res) => {
     let rawdata = fs.readFileSync('./database/todolistsDB.json');
     let todolistsDB = JSON.parse(rawdata);
     const {todolist_id} = req.params;
@@ -367,7 +367,7 @@ app.delete('/api/tasks/:todolist_id', (req, res) => {
 // CHANGE TASK STATUS
 /**
  * @swagger
- * /api/tasks/{todolist_id}/status:
+ * /tasks/{todolist_id}/status:
  *   put:
  *     summary: Update Task status
  *     description: Update the status of a task in a Todolist.
@@ -395,7 +395,7 @@ app.delete('/api/tasks/:todolist_id', (req, res) => {
  *       404:
  *         description: Task or Todolist not found.
  */
-app.put('/api/tasks/:todolist_id/status', (req, res) => {
+app.put('/tasks/:todolist_id/status', (req, res) => {
     let rawdata = fs.readFileSync('./database/todolistsDB.json');
     let todolistsDB = JSON.parse(rawdata);
     const {todolist_id} = req.params;
