@@ -1,21 +1,8 @@
 const express = require("express")
 const path = require('path')
 const bodyParser = require('body-parser')
-let todolists = [
-    {
-        id: '123-123', title: 'My todolist'
-    },
-    {
-        id: '321-321', title: 'My second todolist'
-    }
-]
-let tasks = {
-    ['123-123']: [
-        {id: '321', title: 'do thing', isDone: false},
-        {id: '431', title: 'do thing', isDone: true},
-        {id: '531', title: 'do thing', isDone: false}
-    ]
-}
+const fs = require('fs');
+const databasePathURL = './database/todolistsDB.json'
 
 const app = express()
 app.use(bodyParser.json())
@@ -24,145 +11,151 @@ app.use(express.static(__dirname))
 app.use(express.static(path.resolve(__dirname, 'build')))
 const port = 8080
 
-app.get('/todolists', (req, res) => {
-    res.send(path.join(__dirname, 'build', 'index.html'))
-})
+// app.get('/todolists', (req, res) => {
+//     res.send(path.join(__dirname, 'build', 'index.html'))
+// })
 
+//
 app.get('/api/todolists', (req, res) => {
-    res.json({todolists})
+    let rawdata = fs.readFileSync(databasePathURL)
+    res.json(JSON.parse(rawdata))
 })
 
-app.get('/api/todolists/:id/tasks', (req, res) => {
-    const {id} = req.params
-    const taskOfTodolist = tasks[id]
-    if (taskOfTodolist) {
-        res.json({tasks: taskOfTodolist})
+app.get('/api/todolists/:todolist_id/tasks', (req, res) => {
+    const {todolist_id} = req.params
+    let rawdata = fs.readFileSync(databasePathURL)
+    let todolistsDB = JSON.parse(rawdata)
+    if (todolistsDB.tasks[todolist_id]) {
+        res.json({tasks: todolistsDB.tasks[todolist_id]})
     } else {
-        res.join({errorMessage: 'not found'})
+        res.status(404).end()
     }
-    res.json({params: req.params})
 })
-
 
 app.post('/api/todolists', (req, res) => {
-    const title = req.body.title
+    const {title} = req.body
+    let rawdata = fs.readFileSync(databasePathURL)
+    let todolistsDB = JSON.parse(rawdata)
     const id = Date.now().toString()
-    const newToDo = {id, title}
-    todolists.push(newToDo)
-    tasks[id] = []
-    res.json({newToDo})
+    const newToDo = {id, title,filter:"All"}
+    todolistsDB.todolists.push(newToDo)
+    todolistsDB.tasks[id] = []
+    fs.writeFileSync(databasePathURL,JSON.stringify(todolistsDB))
+    res.json(todolistsDB)
 })
+
 app.put('/api/todolists/:id', (req, res) => {
     const {id} = req.params
     const title = req.body.title
+    let rawdata = fs.readFileSync('./database/todolistsDB.json')
+    let todolistsDB = JSON.parse(rawdata)
     let isFinded = false
-    todolists.map((tdl) => {
+    todolistsDB.todolists.map((tdl) => {
         if (tdl.id === id) {
             tdl.title = title
             isFinded = true
         }
     })
     if (isFinded) {
+        fs.writeFileSync(databasePathURL,JSON.stringify(todolistsDB))
         res.json({message: 'ok'})
     } else {
-        res.json({errorMessage: 'not found'})
+        res.status(404).end()
     }
 
 })
 
 app.delete('/api/todolists/:id', (req, res) => {
     const {id} = req.params
-    delete tasks[id]
-    todolists = todolists.filter(tdl => tdl.id !== id)
-    res.json({message: 'ok'})
+    let rawdata = fs.readFileSync('./database/todolistsDB.json')
+    let todolistsDB = JSON.parse(rawdata)
+    if (todolistsDB.todolists[id]){
+        delete todolistsDB.tasks[id]
+        todolistsDB.todolists = todolistsDB.todolists.filter(tdl => tdl.id !== id)
+        fs.writeFileSync(databasePathURL,JSON.stringify(todolistsDB))
+        res.json({message: 'ok'})
+    }else{
+        res.status(404).end()
+    }
+
 })
 
-
 app.post('/api/tasks', (req, res) => {
+    let rawdata = fs.readFileSync('./database/todolistsDB.json')
+    let todolistsDB = JSON.parse(rawdata)
     const {todolist_id} = req.body
     const {title} = req.body
-    const newTask = {id: Date.now().toString(), title, isDone: false}
-    tasks[todolist_id].push(newTask)
-    res.json({message: 'ok'})
+    if (todolistsDB.tasks[todolist_id]){
+        const newTask = {id: Date.now().toString(), title, isDone: false}
+        todolistsDB.tasks[todolist_id].push(newTask)
+        fs.writeFileSync(databasePathURL,JSON.stringify(todolistsDB))
+        res.json({message: 'ok'})
+    }else{
+        res.status(404).end()
+    }
+
 })
 
 app.put('/api/tasks/:todoid', (req, res) => {
+    let rawdata = fs.readFileSync('./database/todolistsDB.json')
+    let todolistsDB = JSON.parse(rawdata)
     const {todoid} = req.params
     const {id} = req.body
     const {title} = req.body
-    let isFinded = false
-    tasks[todoid].map((t) => {
-        if (t.id === id) {
-            t.title = title
-            isFinded = true
+    if (todolistsDB.tasks[todoid]) {
+        if(todolistsDB.tasks[todoid].find((el)=>el.id===id)){
+            todolistsDB.tasks[todoid].find((el)=>el.id===id).title=title
+            fs.writeFileSync(databasePathURL,JSON.stringify(todolistsDB))
+            res.json({message: 'ok'})
         }
-    })
-    if (isFinded) {
-        res.json({message: 'ok'})
+        else{
+            res.status(404).end()
+        }
     } else {
-        res.json({errorMessage: 'not found'})
+        res.status(404).end()
     }
 })
-app.delete('/api/tasks/:id',(req, res)=>{
-    const {todolist_id} = req.body
-    const {id} = req.params
-    tasks[todolist_id]=tasks[todolist_id].filter(t=>t.id!==id)
-    res.json({message: 'ok'})
-
+app.delete('/api/tasks/:todolist_id',(req, res)=>{
+    let rawdata = fs.readFileSync('./database/todolistsDB.json')
+    let todolistsDB = JSON.parse(rawdata)
+    const {todolist_id} = req.params
+    const {task_id} = req.body
+    if (todolistsDB.tasks[todolist_id]) {
+        if (todolistsDB.tasks[todolist_id].find((el)=>el.id===task_id)){
+            todolistsDB.tasks[todolist_id]=todolistsDB.tasks[todolist_id].filter(task=>task.id!==task_id)
+            fs.writeFileSync(databasePathURL,JSON.stringify(todolistsDB))
+            res.json({message: 'ok'})
+        }
+        else{
+            res.json({error_message:"not found task"})
+            res.status(404).end()
+        }
+    } else {
+        res.json({error_message:"not found todolist"})
+        res.status(404).end()
+    }
 })
 
+app.put('/api/tasks/:todolist_id/status', (req, res) => {
+    let rawdata = fs.readFileSync('./database/todolistsDB.json')
+    let todolistsDB = JSON.parse(rawdata)
+    const {todolist_id} = req.params
+    const {task_id} = req.body
+    const {status} = req.body
+    if (todolistsDB.tasks[todolist_id]) {
+        if(todolistsDB.tasks[todolist_id].find((el)=>el.id===task_id)){
+            todolistsDB.tasks[todolist_id].find((el)=>el.id===task_id).isDone=status
+            fs.writeFileSync(databasePathURL,JSON.stringify(todolistsDB))
+            res.json({message: 'ok'})
+        }
+        else{
+            res.status(404).end()
+        }
+    } else {
+        res.status(404).end()
+    }
+})
 
 app.listen(port, () => {
     console.log('Server is running on port' + port)
 })
-// const server = http.createServer((req, res) => {
-//     const parsedUrl = url.parse(req.url)
-//     switch (parsedUrl.pathname) {
-//         case '/': {
-//             fs.readFile('./pages/index.html',(err, data)=>{
-//                 if (err){
-//                     res.end('some error')
-//                     res.writeHead(500)
-//
-//                 }
-//                 res.writeHead(200)
-//                 res.end(data)
-//             })
-//             break
-//         }
-//         case '/about': {
-//             fs.readFile('./pages/about.html',(err, data)=>{
-//                 if (err){
-//                     res.end('some error')
-//                     res.writeHead(500)
-//
-//                 }
-//                 res.writeHead(200)
-//                 res.end(data)
-//             })
-//             break
-//         }
-//         case '/todolists': {
-//                 res.writeHead(200)
-//                 res.end(buildHtml(`
-//                 ${
-//                     todolists.map((t)=>{
-//                         return `<h1>${t.title}</h1>`
-//                     })
-//                 }
-//
-//                 `))
-//             break
-//         }
-//         default: {
-//             res.writeHead(404)
-//             res.end('not found!')
-//             break
-//         }
-//     }
-//
-// })
-//
-// server.listen(8080, 'localhost', () => {
-//     console.log('server is running')
-// })
