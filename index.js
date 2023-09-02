@@ -63,9 +63,20 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs, disableTryItO
 const port = 8080;
 
 // GET TODOLISTS
+/**
+ * @swagger
+ * tags:
+ *   name: Todolists
+ *   description: Operations related to Todolists
+ */
 
+/**
+ * @swagger
+ * tags:
+ *   name: Tasks
+ *   description: Operations related to Tasks
+ */
 
-app.use(express.json());
 /**
  * @swagger
  * /api/return_default:
@@ -91,6 +102,7 @@ app.get('/api/todolists', (req, res) => {
  *   get:
  *     summary: Get todolist
  *     description: Get todolists
+ *     tags: [Todolists]
  *     responses:
  *       200:
  *         description: Get success
@@ -114,6 +126,7 @@ app.get('/api/todolists/:todolist_id/tasks', (req, res) => {
  *   post:
  *     summary: Create a new Todolist
  *     description: Create a new Todolist with a specified title.
+ *     tags: [Todolists]
  *     requestBody:
  *       description: The title of the Todolist to create.
  *       required: true
@@ -147,6 +160,7 @@ app.post('/api/todolists', (req, res) => {
  *   put:
  *     summary: Update Todolist title
  *     description: Update the title of a Todolist with a specified ID.
+ *     tags: [Todolists]
  *     parameters:
  *       - in: path
  *         name: todolist_id
@@ -189,6 +203,7 @@ app.put('/api/todolists/:todolist_id', (req, res) => {
  *   delete:
  *     summary: Delete Todolist
  *     description: Delete a Todolist with a specified ID.
+ *     tags: [Todolists]
  *     parameters:
  *       - in: path
  *         name: todolist_id
@@ -221,6 +236,7 @@ app.delete('/api/todolists/:todolist_id', (req, res) => {
  *   post:
  *     summary: Create a new Task
  *     description: Create a new task in a specified Todolist.
+ *     tags: [Tasks]
  *     requestBody:
  *       description: The task details.
  *       required: true
@@ -258,6 +274,7 @@ app.post('/api/tasks', (req, res) => {
  *   put:
  *     summary: Update Task title
  *     description: Update the title of a task in a Todolist.
+ *     tags: [Tasks]
  *     parameters:
  *       - in: path
  *         name: todoid
@@ -306,6 +323,7 @@ app.put('/api/tasks/:todoid', (req, res) => {
  *   delete:
  *     summary: Delete Task
  *     description: Delete a task from a Todolist.
+ *     tags: [Tasks]
  *     parameters:
  *       - in: path
  *         name: todolist_id
@@ -352,6 +370,7 @@ app.delete('/api/tasks/:todolist_id', (req, res) => {
  *   put:
  *     summary: Update Task status
  *     description: Update the status of a task in a Todolist.
+ *     tags: [Tasks]
  *     parameters:
  *       - in: path
  *         name: todolist_id
