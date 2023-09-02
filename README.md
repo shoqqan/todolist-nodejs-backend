@@ -7,12 +7,13 @@
   </p>
 
   <br>
-<p>
-  Here is main URL 👉 https://todolist-nodejs-backend.onrender.com/*REQUEST*
-</p>
-
 
 🌐 Live API Documentation: <a href='https://todolist-nodejs-backend.onrender.com/api-docs/'>Live Documentation</a>
+
+
+<p>
+  👉 Here is main URL for requests:  https://todolist-nodejs-backend.onrender.com/*REQUEST*
+</p>
 
 <br>
 
