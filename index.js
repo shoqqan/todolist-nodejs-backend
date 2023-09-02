@@ -31,6 +31,7 @@ const defaultDATA = {
 };
 dotenv.config();
 const app = express();
+app.use(express.json())
 const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
