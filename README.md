@@ -9,7 +9,7 @@
   <br>
 
 🌐 Live API Documentation: <a target="_blank" href='https://todolist-nodejs-backend.onrender.com/api-docs/'>Live Documentation</a>
-
+   <p><b>The site can take a long time to load, so you need to wait<\b><\p>
 
 <p>
   👉 Here is main URL for requests:  https://todolist-nodejs-backend.onrender.com/*REQUEST*
