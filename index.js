@@ -3,6 +3,7 @@ const fs = require('fs');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const dotenv = require("dotenv");
+const cors = require("cors");
 const databasePathURL = './database/todolistsDB.json';
 const defaultDATA = {
     todolists: [
@@ -31,6 +32,7 @@ const defaultDATA = {
 };
 dotenv.config();
 const app = express();
+app.use(cors())
 app.use(express.json())
 const swaggerOptions = {
     definition: {
