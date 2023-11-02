@@ -13,7 +13,7 @@ const defaultDATA = {
             filter: "all"
         },
         {
-            id: "second'",
+            id: "second",
             title: "What to eat?🍕'",
             filter: "all"
         }
